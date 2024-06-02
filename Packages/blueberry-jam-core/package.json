@@ -9,8 +9,15 @@
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
   "dependencies": {
- },
- "keywords": [
+  },
+  "samples": [
+    {
+      "displayName": "Samples",
+      "description": "All samples for the tools added with this package.",
+      "path": "Samples"
+    }
+  ],
+  "keywords": [
     "Core",
     "Library",
     "Blueberry"
