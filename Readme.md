@@ -1,0 +1,1 @@
+Install with `Window -> Package Manager -> Add package from git URL` and use the url `https://github.com/Blueberry-Jam-Games/Blueberry-Core.git?path=/Packages/blueberry-jam-core`
