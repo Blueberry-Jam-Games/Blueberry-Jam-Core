@@ -22,7 +22,8 @@ public class RunDifferentCoroutines : MonoBehaviour
             Debug.Log("It's the end of the frame");
         });
 
-        BJ.Coroutines.DoAtFixedUpdate(() => {
+        BJ.Coroutines.DoAtFixedUpdate(() =>
+        {
             Debug.Log("It's a FixedUpdate");
         });
 

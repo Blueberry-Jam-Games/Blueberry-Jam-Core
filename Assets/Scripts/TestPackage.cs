@@ -11,10 +11,4 @@ public class TestPackage : MonoBehaviour
         hrt.ExternalCall();
         Debug.Log(ZC.HelloNamespaced.NonComponentAction());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
