@@ -10,13 +10,6 @@
   "licensesUrl": "https://example.com/licensing.html",
   "dependencies": {
   },
-  "samples": [
-    {
-      "displayName": "Code Samples",
-      "description": "A sampling of all of the programming APIs available with this package.",
-      "path": "Samples~/ProgrammingTools"
-    }
-  ],
   "keywords": [
     "Core",
     "Library",
