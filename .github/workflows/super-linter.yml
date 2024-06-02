@@ -8,10 +8,10 @@ name: Lint Code Base
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   push:
     branches:
-      - master
+      - main
 jobs:
   run-lint:
     runs-on: ubuntu-latest
@@ -29,5 +29,5 @@ jobs:
           VALIDATE_CSHARP: true
           IGNORE_GITIGNORED_FILES: true
           VALIDATE_GITHUB_ACTIONS: true
-          DEFAULT_BRANCH: master
+          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
