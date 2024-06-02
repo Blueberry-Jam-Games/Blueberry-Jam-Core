@@ -17,6 +17,7 @@ namespace BJ.Samples
         public GameObject raindropPrefab;
 
         [Header("Demo Configuration")]
+        [Tooltip("Allows enabling or disabling the object pool. If it is disabled, Instantiate and Destroy will be used instead")]
         public bool poolObjects = true;
 
         private void Awake()
