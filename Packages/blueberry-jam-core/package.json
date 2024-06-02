@@ -12,9 +12,9 @@
   },
   "samples": [
     {
-      "displayName": "Samples",
-      "description": "All samples for the tools added with this package.",
-      "path": "Samples"
+      "displayName": "Code Samples",
+      "description": "A sampling of all of the programming APIs available with this package.",
+      "path": "Samples~/ProgrammingTools"
     }
   ],
   "keywords": [

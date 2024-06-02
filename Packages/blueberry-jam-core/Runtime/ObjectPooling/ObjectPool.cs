@@ -180,6 +180,11 @@ namespace BJ
                         break;
                     case ExpansionPolicy.MULTIPLY:
                         float newCapacity = (float)capacity * (coefficient - 1);
+                        // Happens when capacity = 0.
+                        if (newCapacity == 0)
+                        {
+                            newCapacity = coefficient;
+                        }
                         ExpandPool(Mathf.RoundToInt(newCapacity));
                         break;
                     case ExpansionPolicy.DENY:
