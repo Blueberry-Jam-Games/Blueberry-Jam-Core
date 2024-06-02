@@ -35,7 +35,7 @@ namespace BJ
         [SerializeField]
         [Tooltip("Shrink Policy is only applied when an item is pooled.")]
         private ShrinkPolicy shrinkPolicy;
-        
+
         [Tooltip("Only applies for SHRINK_LOW_DEMAND policy")]
         [SerializeField]
         private float lowDemandPercentage = 0.0f;
@@ -44,7 +44,7 @@ namespace BJ
         // Includes the theoretical number of active objects as well even though we don't track it
         private int capacity = 0;
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         private GameObject lastPrefab;
         private void Update()
         {
@@ -108,7 +108,7 @@ namespace BJ
                 DestroyImmediate(transform.GetChild(0).gameObject);
             }
         }
-        #endif
+#endif
 
         private void Awake()
         {
