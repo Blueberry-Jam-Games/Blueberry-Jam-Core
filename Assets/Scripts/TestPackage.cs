@@ -7,14 +7,8 @@ public class TestPackage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HelloRuntime hrt = GetComponent<HelloRuntime>();
+        ZC.HelloRuntime hrt = GetComponent<ZC.HelloRuntime>();
         hrt.ExternalCall();
         Debug.Log(ZC.HelloNamespaced.NonComponentAction());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
