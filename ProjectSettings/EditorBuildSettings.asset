@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/BJSamples/Components/ShadowCastingSprite/Paper2DSprite.unity
+    guid: d9c3b56507250e145985f140d744daba
   m_configObjects: {}
