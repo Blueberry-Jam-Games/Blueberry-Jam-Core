@@ -9,7 +9,7 @@
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
   "dependencies": {
-    "com.unity.shadergraph": "14"
+    "com.unity.shadergraph": "14.0.10"
   },
   "keywords": [
     "Core",
