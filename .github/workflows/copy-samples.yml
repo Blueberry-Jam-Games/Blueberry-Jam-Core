@@ -1,4 +1,4 @@
-name: Copy BJSamples to Packages
+name: Copy Samples Workflow
 
 on:
   pull_request:
@@ -14,6 +14,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    - name: Set execute permission for copy script
+      run: chmod +x ./copy_samples.sh
 
     - name: Set up Git
       run: |
