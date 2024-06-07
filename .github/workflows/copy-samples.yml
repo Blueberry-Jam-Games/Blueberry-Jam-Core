@@ -1,0 +1,32 @@
+name: Copy BJSamples to Packages
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches:
+      - main
+
+jobs:
+  copy-samples:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Run copy script
+      run: ./copy_samples.sh
+
+    - name: Commit and push changes
+      run: |
+        git add Packages/blueberry-jam-core/Samples~
+        git commit -m "Copy BJSamples to Packages/blueberry-jam-core/Samples~"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
