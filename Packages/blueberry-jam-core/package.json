@@ -2,14 +2,14 @@
   "name": "io.github.blueberry-jam-games.core",
   "version": "0.0.1",
   "displayName": "Blueberry Jam Games Core",
-  "description": "Starter code for Blueberry Jam Games projects",
+  "description": "Starter code for Blueberry Jam Games projects.",
   "unity": "2021.3",
   "unityRelease": "0b1",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
   "dependencies": {
-    "com.unity.shadergraph": "14"
+    "com.unity.shadergraph": "14.0.10"
   },
   "keywords": [
     "Core",
