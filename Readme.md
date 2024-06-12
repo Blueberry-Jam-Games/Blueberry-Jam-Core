@@ -32,7 +32,7 @@ Install with `Window -> Package Manager -> Add package from git URL` and use the
 ### Components
 - ~~Paper 2D Sprite Renderer~~ - **Done**
 
-### Pause Manager
+### Pause Manager - **Done**
 
 ### Shaders
 - Procreate PBR
@@ -44,8 +44,8 @@ Install with `Window -> Package Manager -> Add package from git URL` and use the
 - Trigger an event when a cheat code triggers.
 - Optionally mark codes as Development only or not.
 
-### Sound Engine
-- That 1 Brackys tutorial (it's in most of our past games)
+### Sound Engine - **Done**
+- ~~That 1 Brackys tutorial (it's in most of our past games)~~
 
 ### Other:
 - Investigate GLTF Processes?
