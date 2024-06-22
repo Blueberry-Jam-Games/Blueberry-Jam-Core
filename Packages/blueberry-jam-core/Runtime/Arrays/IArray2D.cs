@@ -26,4 +26,26 @@ namespace BJ
             set;
         }
     }
+
+    public static class Array2DHelpers
+    {
+        public static Vector2Int Coordinates(int index, int width, int height)
+        {
+            int x = Mathf.FloorToInt(index / width);
+            int y = index % height;
+            return new Vector2Int(x, y);
+        }
+
+        internal static string ToStringOrNull<T>(T unknown)
+        {
+            if (unknown == null)
+            {
+                return "null";
+            }
+            else
+            {
+                return unknown.ToString();
+            }
+        }
+    }
 }

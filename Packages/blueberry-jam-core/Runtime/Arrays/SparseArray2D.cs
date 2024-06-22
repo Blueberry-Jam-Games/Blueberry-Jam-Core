@@ -1,10 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace BJ
 {
+    /**
+     * @brief An implentation of a 2D array that uses a HashMap backing, best for cases where sporadic points are edited at random.
+     *        Most other operations are slower than a basic Array2D
+     */
     public class SparseArray2D<T> : IArray2D<T>
     {
         // TODO serialize
@@ -16,18 +21,22 @@ namespace BJ
          * @brief Width is calculated as the difference between the rightmost element ever entered and the leftmost element ever entered.
          *        To change it, call TrimDimensions
          */
-        public int Width => highX - lowX;
+        public int Width => highX - lowX + 1;
 
         /**
          * @brief Height is calculated as the difference between the highest element ever entered and the lowest element ever entered.
          *        To change it, call TrimDimensions
          */
-        public int Height => highY - lowY;
+        public int Height => highY - lowY + 1;
 
         private int lowX = int.MaxValue;
         private int highX = int.MinValue;
         private int lowY = int.MaxValue;
         private int highY = int.MinValue;
+
+        private StringBuilder sparseStringBuilder;
+        private Vector2Int coordsCache;
+
 
         public SparseArray2D()
         {
@@ -35,15 +44,9 @@ namespace BJ
             defaultValue = default;
         }
 
-        public SparseArray2D(int width, int height)
+        public SparseArray2D(T defaultValue)
         {
-            this.data = new Dictionary<Vector2Int, T>(width * height);
-            defaultValue = default;
-        }
-
-        public SparseArray2D(int width, int height, T defaultValue)
-        {
-            this.data = new Dictionary<Vector2Int, T>(width * height);
+            this.data = new Dictionary<Vector2Int, T>(25);
             this.defaultValue = defaultValue;
         }
 
@@ -51,7 +54,8 @@ namespace BJ
         {
             get
             {
-                Vector2Int coords = Coordinates(i);
+                // Vector2Int coords = this.Coordinates(i, Width, Height);
+                Vector2Int coords = Array2DHelpers.Coordinates(i, Width, Height);
                 if (data.TryGetValue(coords, out T value))
                 {
                     return value;
@@ -69,7 +73,6 @@ namespace BJ
                 this[x, y] = value;
             }
         }
-        private Vector2Int coordsCache;
         public T this[int i, int j]
         {
             get
@@ -101,10 +104,10 @@ namespace BJ
                 data[coordsCache] = value;
 
                 if (i < lowX) lowX = i;
-                else if (i > highX) highX = i;
+                if (i > highX) highX = i;
 
                 if (j < lowY) lowY = j;
-                else if (j > highY) highY = j;
+                if (j > highY) highY = j;
             }
         }
 
@@ -117,14 +120,6 @@ namespace BJ
         }
 
         public bool IsReadOnly => false;
-
-        // Mirrored from dense implementation
-        public Vector2Int Coordinates(int index)
-        {
-            int x = Mathf.FloorToInt(index / Width);
-            int y = index % Height;
-            return new Vector2Int(x, y);
-        }
 
         public void Add(KeyValuePair<Vector2Int, T> item)
         {
@@ -170,6 +165,23 @@ namespace BJ
             }
         }
 
+        public bool RemoveAt(int x, int y)
+        {
+            if (coordsCache == null)
+            {
+                coordsCache = new Vector2Int(x, y);
+            }
+            coordsCache.x = x;
+            coordsCache.y = y;
+
+            if (data.ContainsKey(coordsCache))
+            {
+                data.Remove(coordsCache);
+                return true;
+            }
+            return false;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return data.GetEnumerator();
@@ -188,11 +200,87 @@ namespace BJ
                 int y = kvp.Key.y;
 
                 if (x < lowX) lowX = x;
-                else if (x > highX) highX = x;
+                if (x > highX) highX = x;
 
                 if (y < lowY) lowY = y;
-                else if (y > highY) highY = y;
+                if (y > highY) highY = y;
             }
+        }
+
+        public override string ToString()
+        {
+            sparseStringBuilder ??= new StringBuilder();
+            sparseStringBuilder.Clear();
+
+            sparseStringBuilder.AppendLine($"({Width}x{Height}) Array of type {typeof(T).Name}, Top left ({lowX}, {lowY}), Bottom right: {highX}, {highY})");
+
+            sparseStringBuilder.Append("Y> ");
+            for (int y = lowY; y <= highY; y++)
+            {
+                sparseStringBuilder.Append($"{y} ");
+            }
+            sparseStringBuilder.Append("<\n");
+
+            sparseStringBuilder.Append("{");
+            for (int x = lowX; x <= highX; x++)
+            {
+                sparseStringBuilder.Append($"{x}: {{");
+                for (int y = lowY; y <= highY; y++)
+                {
+                    sparseStringBuilder.Append(Array2DHelpers.ToStringOrNull(this[x, y]));
+                    sparseStringBuilder.Append(" ");
+                }
+                if (x + 1 <= highY)
+                {
+                    sparseStringBuilder.Append("}\n");
+                }
+                else
+                {
+                    sparseStringBuilder.Append("}}");
+                }
+            }
+
+            return sparseStringBuilder.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            SparseArray2D<T> other = (SparseArray2D<T>)obj;
+
+            if (other.Width != Width || other.Height != Height)
+            {
+                return false;
+            }
+
+            bool same = true;
+
+            foreach (KeyValuePair<Vector2Int, T> kvp in data)
+            {
+                if (!other.Contains(kvp))
+                {
+                    same = false;
+                }
+            }
+            foreach (KeyValuePair<Vector2Int, T> kvp in other.data)
+            {
+                if (Contains(kvp))
+                {
+                    same = false;
+                }
+            }
+
+            return same;
+        }
+
+        public override int GetHashCode()
+        {
+            // If value is null, use 0 as the hash code
+            return Width.GetHashCode() ^ Height.GetHashCode() ^ data.GetHashCode();
         }
     }
 }

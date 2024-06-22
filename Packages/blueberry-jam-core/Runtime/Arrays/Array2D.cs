@@ -259,7 +259,7 @@ namespace BJ
             {
                 for (int y = 0; y < height; y++)
                 {
-                    arrayStringBuilder.Append(this[x, y].ToString());
+                    arrayStringBuilder.Append(Array2DHelpers.ToStringOrNull(this[x, y]));
                     arrayStringBuilder.Append(" ");
                 }
                 if (x + 1 < width)
