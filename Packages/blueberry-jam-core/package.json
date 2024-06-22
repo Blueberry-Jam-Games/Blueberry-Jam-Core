@@ -20,5 +20,12 @@
     "name": "Blueberry Jam Games",
     "email": "dont@example.com",
     "url": "https://github.com/Blueberry-Jam-Games/"
-  }
+  },
+  "samples": [
+	{
+		"displayName": "Samples",
+		"description": "Example usage of most of the tools in this package",
+		"path": "Samples~"
+	}
+  ]
 }
