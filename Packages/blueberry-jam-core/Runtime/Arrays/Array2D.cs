@@ -64,7 +64,7 @@ namespace BJ
         {
             this.width = width;
             this.height = height;
-            
+
             this.data = new T[width * height];
             for (int x = 0; x < Count; x++)
             {
@@ -73,7 +73,8 @@ namespace BJ
             this.defaultValue = defaultValue;
         }
 
-        public T this[int i, int j] {
+        public T this[int i, int j]
+        {
             get
             {
                 if (i >= 0 && i < width && j >= 0 && j < height)
@@ -118,7 +119,8 @@ namespace BJ
             }
         }
 
-        public T this[int i] {
+        public T this[int i]
+        {
             get
             {
                 int y = i % width;

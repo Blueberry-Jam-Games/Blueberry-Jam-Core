@@ -31,25 +31,18 @@ namespace BJ
 
         public SparseArray2D()
         {
-            // this.width = 5;
-            // this.height = 5;
             this.data = new Dictionary<Vector2Int, T>(25);
             defaultValue = default;
         }
 
         public SparseArray2D(int width, int height)
         {
-            // this.width = width;
-            // this.height = height;
             this.data = new Dictionary<Vector2Int, T>(width * height);
             defaultValue = default;
         }
 
         public SparseArray2D(int width, int height, T defaultValue)
         {
-            // this.width = width;
-            // this.height = height;
-            
             this.data = new Dictionary<Vector2Int, T>(width * height);
             this.defaultValue = defaultValue;
         }
@@ -199,7 +192,7 @@ namespace BJ
 
                 if (y < lowY) lowY = y;
                 else if (y > highY) highY = y;
-            }  
+            }
         }
     }
 }
