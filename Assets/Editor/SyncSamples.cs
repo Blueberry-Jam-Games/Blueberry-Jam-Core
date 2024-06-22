@@ -20,6 +20,7 @@ public class SyncSamples : Editor
     [MenuItem("Blueberry Jam/Sync Samples")]
     public static void SyncSampleFolders()
     {
+        EditorUtility.DisplayProgressBar("Synchronizing Samples", "Copying samples from the project working directory to teh packages sample directory.", 0.1f);
         if (Directory.Exists(sourcePath))
         {
             Debug.Log("Starting samples synchronization.");
@@ -31,6 +32,7 @@ public class SyncSamples : Editor
         {
             Debug.LogError("Source path does not exist: " + sourcePath);
         }
+        EditorUtility.ClearProgressBar();
     }
 
     /**
