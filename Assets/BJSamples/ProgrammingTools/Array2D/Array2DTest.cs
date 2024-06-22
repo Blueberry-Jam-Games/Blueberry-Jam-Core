@@ -69,11 +69,11 @@ public class Array2DTest : MonoBehaviour
         sparseArray.RemoveAt(8, 8);
 
         Debug.Log("Array after removing (8, 8)");
-        
+
         Debug.Log(sparseArray.ToString());
 
         Debug.Log("Array after dimension trim");
-        
+
         sparseArray.TrimDimensions();
 
         Debug.Log(sparseArray.ToString());
