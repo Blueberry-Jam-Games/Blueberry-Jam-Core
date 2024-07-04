@@ -3,15 +3,15 @@ pipeline
     agent any
     stages
     {
-        stage("Update")
+        stage("Checkout")
         {
             steps
             {
                 echo 'Update is being called'
-                git pull
+                checkout scm
             }
         }
-        stage('Build')
+        /*stage('Build')
         {
             steps
             {
@@ -31,7 +31,7 @@ pipeline
             {
                 echo 'Deploying...'
             }
-        }
+        }*/
     }
     
 }
