@@ -11,7 +11,7 @@ pipeline
                 checkout scm
             }
         }
-        /*stage('Build')
+        stage('Build')
         {
             steps
             {
@@ -31,7 +31,7 @@ pipeline
             {
                 echo 'Deploying...'
             }
-        }*/
+        }
     }
     
 }
