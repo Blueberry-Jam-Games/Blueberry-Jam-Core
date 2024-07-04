@@ -3,6 +3,13 @@ pipeline
     agent any
     stages
     {
+        stage("Update")
+        {
+            steps
+            {
+                git pull
+            }
+        }
         stage('Build')
         {
             steps
