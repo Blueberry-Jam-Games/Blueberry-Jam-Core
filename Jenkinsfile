@@ -7,6 +7,7 @@ pipeline
         {
             steps
             {
+                echo 'Update is being called'
                 git pull
             }
         }
