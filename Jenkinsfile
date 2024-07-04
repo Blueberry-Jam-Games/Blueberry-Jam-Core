@@ -15,7 +15,7 @@ pipeline
         {
             steps
             {
-                cd
+                echo 'fuck'
                 "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -nographics -executeMethod JenkinsBuild.BuildWindows -quit -logfile build.log
             }
         }
