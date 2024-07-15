@@ -1,6 +1,6 @@
 pipeline
 {
-    agent any
+    agent { label 'ngrokagent1' }
     stages
     {
         //stage('Build-Windows')
