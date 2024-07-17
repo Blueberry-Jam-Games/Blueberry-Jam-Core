@@ -94,6 +94,7 @@ public class JenkinsBuild : Editor
 
         if (summary.result == BuildResult.Succeeded)
         {
+            Debug.Log(string.IsNullOrEmpty(summary.outputPath.Is))
             Debug.Log("Linux Build succeeded" + summary.outputPath);
         }
 
