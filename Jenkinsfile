@@ -30,7 +30,6 @@ pipeline
             {
                 sh 'PROJECT_PATH=$(pwd)'
                 sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -projectPath "$PROJECT_PATH" -nographics -executeMethod JenkinsBuild.BuildLinux -quit'
-                sh 'ls'
             }
         }
         stage('Upload Linux Build')
@@ -41,6 +40,7 @@ pipeline
                                                  usernameVariable: 'AWS_ACCESS_KEY_ID', 
                                                  passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
+                        ls
                         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
                         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
                         aws s3 ls
