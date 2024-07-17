@@ -29,6 +29,7 @@ pipeline
             steps
             {
                 sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -nographics -executeMethod JenkinsBuild.BuildLinux -quit'
+                sh 'ls'
             }
         }
         stage('Upload Linux Build')
