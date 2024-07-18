@@ -72,7 +72,10 @@ pipeline
                 def threadId = params.THREAD_ID
 
                 def webhookUrl = 'https://discord.com/api/webhooks/1263347658672570461/_b8hUdMdXcqusvXVdMZcGQjvQBNzndutG1-RPgKqmVPcecw98IKnTSmkfKCCYLnxOtpa'
-                def payload = "{'content': 'Build is complete.', 'thread_id': '${threadId}'}"                // Use curl to send the HTTP POST request
+                
+                // Construct the JSON payload with proper escaping
+                def payload = "{\"content\": \"Build is complete.\", \"thread_id\": \"${threadId}\"}"
+
                 sh """
                     curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
                 """
