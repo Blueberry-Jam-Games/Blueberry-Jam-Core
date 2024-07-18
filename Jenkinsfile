@@ -76,7 +76,8 @@ pipeline
             script {
                 def threadId = params.THREAD_ID
 
-                def webhookUrl = "https://discord.com/api/webhooks/1263347658672570461/_b8hUdMdXcqusvXVdMZcGQjvQBNzndutG1-RPgKqmVPcecw98IKnTSmkfKCCYLnxOtpa?thread_id=${threadId}"
+                //make sure ?thread_id=${threadId} is appended to the webhook
+                def webhookUrl = "?thread_id=${threadId}"
                 
                 // Construct the JSON payload with proper escaping
                 def payload = "{\"content\": \"Build is complete.\"}"
