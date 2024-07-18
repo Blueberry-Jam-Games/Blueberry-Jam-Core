@@ -1,6 +1,11 @@
 pipeline
 {
     agent { label 'ngrokagent1' }
+
+     parameters {
+        string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
+    }
+
     stages
     {
         //stage('Build-Windows')
