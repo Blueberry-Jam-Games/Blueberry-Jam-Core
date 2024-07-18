@@ -33,6 +33,7 @@ pipeline
         {
             steps
             {
+                sh 'echo "THREAD_ID: ${params.THREAD_ID}"'
                 sh 'PROJECT_PATH=$(pwd)'
                 sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -projectPath "$PROJECT_PATH" -nographics -executeMethod JenkinsBuild.BuildLinux -quit'
             }
@@ -76,10 +77,10 @@ pipeline
             script {
                 def threadId = params.THREAD_ID
 
-                def webhookUrl = 'https://discord.com/api/webhooks/1263347658672570461/_b8hUdMdXcqusvXVdMZcGQjvQBNzndutG1-RPgKqmVPcecw98IKnTSmkfKCCYLnxOtpa'
+                def webhookUrl = 'https://discord.com/api/webhooks/1263347658672570461/_b8hUdMdXcqusvXVdMZcGQjvQBNzndutG1-RPgKqmVPcecw98IKnTSmkfKCCYLnxOtpa?thread_id=${threadId}'
                 
                 // Construct the JSON payload with proper escaping
-                def payload = "{\"content\": \"Build is complete.\", \"thread_id\": \"${threadId}\"}"
+                def payload = "{\"content\": \"Build is complete.\"}"
 
                 sh """
                     curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
