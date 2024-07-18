@@ -76,15 +76,10 @@ pipeline
                     content: "Build is complete. You can download it (coming soon).",
                     thread_id: threadId
                 ]
-                def response = httpRequest(
-                    httpMode: 'POST',
-                    acceptType: 'APPLICATION_JSON',
-                    contentType: 'APPLICATION_JSON',
-                    url: webhookUrl,
-                    requestBody: groovy.json.JsonOutput.toJson(payload)
-                )
-
-                echo "Discord webhook response: ${response}"
+                // Use curl to send the HTTP POST request
+                sh """
+                    curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
+                """
             }
         }
     }
