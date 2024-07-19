@@ -22,18 +22,34 @@ pipeline
         //        bat '"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -nographics -executeMethod JenkinsBuild.BuildWebGL -quit'
         //    }
         //}
-        //stage('Build-WebGL-Linux')
-        //{
-        //    steps
-        //    {
-                //sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -nographics -executeMethod JenkinsBuild.BuildWebGL -quit'
-        //    }
-        //}
-        stage('Build-Linux')
+        stage('Build-WebGL-Linux')
         {
             steps
             {
                 sh 'PROJECT_PATH=$(pwd)'
+                sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -projectPath "$PROJECT_PATH" -nographics -executeMethod JenkinsBuild.BuildWebGL -quit'
+            }
+        }
+        stage('Upload WebGL Build')
+        {
+            steps
+            {
+                echo 'deploy WebGL build here'
+                withCredentials([usernamePassword(credentialsId: 'aws-credentials-id', 
+                                                 usernameVariable: 'AWS_ACCESS_KEY_ID', 
+                                                 passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                        aws s3 cp Build/WebGL s3://webgl-deploy/
+                    '''
+                }
+            }
+        }
+        stage('Build-Linux')
+        {
+            steps
+            {
                 sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -projectPath "$PROJECT_PATH" -nographics -executeMethod JenkinsBuild.BuildLinux -quit'
             }
         }
@@ -41,30 +57,10 @@ pipeline
         {
             steps
             {
-                withCredentials([usernamePassword(credentialsId: 'aws-credentials-id', 
-                                                 usernameVariable: 'AWS_ACCESS_KEY_ID', 
-                                                 passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh '''
-                        tar -zcvf Linux-Build.tar.gz Build
-                        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-                        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-                        aws s3 cp Linux-Build.tar.gz s3://linux-build/
-                    '''
-                }
-            }
-        }
-        stage('Test')
-        {
-            steps
-            {
-                echo 'Testing...'
-            }
-        }
-        stage('Deploy')
-        {
-            steps
-            {
-                echo 'Deploying...'
+                sh '''
+                    tar -zcvf Linux-Build.tar.gz Build
+                    aws s3 cp Linux-Build.tar.gz s3://linux-build/
+                '''
             }
         }
     }
