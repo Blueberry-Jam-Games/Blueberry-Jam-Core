@@ -72,15 +72,17 @@ pipeline
             script {
                 def threadId = params.THREAD_ID
 
-                //make sure ?thread_id=${threadId} is appended to the webhook
-                def webhookUrl = "?thread_id=${threadId}"
+                withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
+                    //make sure ?thread_id=${threadId} is appended to the webhook
+                    def webhookUrl = "${WEBHOOK_URL}?thread_id=${threadId}"
                 
-                // Construct the JSON payload with proper escaping
-                def payload = "{\"content\": \"Build is complete.\"}"
+                    // Construct the JSON payload with proper escaping
+                    def payload = "{\"content\": \"Build is complete.\"}"
 
-                sh """
-                    curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
-                """
+                    sh """
+                        curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
+                    """
+                }
             }
         }
     }
