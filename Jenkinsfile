@@ -76,8 +76,16 @@ pipeline
                     //make sure ?thread_id=${threadId} is appended to the webhook
                     def webhookUrl = "${WEBHOOK_URL}?thread_id=${threadId}"
                 
+                    def presignedUrl = sh(
+                        script: """
+                            aws s3 presign s3://linux-build/Linux-Build.tar.gz --expires-in 3600
+                        """,
+                        returnStdout: true
+                    ).trim()
+
+                    def websiteEndpoint = "http://webgl-deploy.s3-website-us-west-2.amazonaws.com"
                     // Construct the JSON payload with proper escaping
-                    def payload = "{\"content\": \"Build is complete.\"}"
+                    def payload = "{\"content\": \"Build is complete.\\n\\nWebGL Build link: ${websiteEndpoint}\\nLinux Build link: ${presignedUrl}\"}"
 
                     sh """
                         curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
