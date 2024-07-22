@@ -1,6 +1,6 @@
 {
   "name": "io.github.blueberry-jam-games.core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Blueberry Jam Games Core",
   "description": "Starter code for Blueberry Jam Games projects.",
   "unity": "2021.3",
