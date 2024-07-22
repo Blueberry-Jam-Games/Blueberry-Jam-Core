@@ -21,6 +21,7 @@ Install with `Window -> Package Manager -> Add package from git URL` and use the
 
 ### Data Types
 - Serializable HashMap (Nate)
+- ~~2D Arrays~~
 
 ### Level Loader (Connor)
 - Scene transitioner.
