@@ -9,8 +9,7 @@ public class TriggerLevelLoad : MonoBehaviour
     {
         if (Input.GetKey("t"))
         {
-            //SceneTransitooner st = 
-            BJ.SceneTransitioner.Instance.LoadNewScene("ConnorTestScene");
+            BJ.SceneTransitioner.LoadNewScene("ConnorTestScene");
         }
     }
 }
