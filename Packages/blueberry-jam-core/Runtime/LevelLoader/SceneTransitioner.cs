@@ -9,32 +9,32 @@ namespace BJ
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
         {
-            //Connor needs to create better variable name but is Lazy right now
-            GameObject sceneTransitionerHelper = Resources.Load<GameObject>("SceneTransitionerConfig");
-            if (sceneTransitionerHelper == null)
+            // This config prefab is holds settings that allow th user to customize how the scene transitioner works for them.
+            // e.g. What sprites (that communicates to the player that a level is loading) are displayed during scene transitions? How long does fading to black and lifting blackout take? etc...
+            GameObject scene_transitioner_config = Resources.Load<GameObject>("SceneTransitionerConfig");
+            if (scene_transitioner_config == null)
             {
-                // If connor forgot to remove this comment or forgot to make the error message better, you should mock hime mercilessly 
-                Debug.LogError("failed to load prefab");
+                Debug.LogError("The configuaration prefab for the SceneTransitioner could not be found. Please ensure that one exists in the Assets/Resources directory of your project");
             }
 
-            GameObject instance = GameObject.Instantiate(sceneTransitionerHelper);
-            if (instance == null)
+            GameObject scene_transitioner_config_instance = GameObject.Instantiate(scene_transitioner_config);
+            if (scene_transitioner_config_instance == null)
             {
-                // If connor forgot to remove this comment or forgot to make the error message better, you should mock him mercilessly 
-                Debug.LogError("failed to instantiate object");
+                Debug.LogError("Failed to create a GameObject instance from the configuration prefab");
             }
 
-            if (instance.TryGetComponent<SceneTransitionerHelper>(out SceneTransitionerHelper sch))
+            if (scene_transitioner_config_instance.TryGetComponent<SceneTransitionerHelper>(out SceneTransitionerHelper sch))
             {
                 mSceneTransitionerHelper = sch;
+            }
+            else
+            {
+                Debug.LogError("Failed to get the SceneTransitionerHelper component from the SceneTransitionerHelper GameObject instance, please ensure that a SceneTransitionerHelper script is added to the configuration prefab");
             }
         }
 
         private static SceneTransitionerHelper mSceneTransitionerHelper;
 
-        // Why static?
-        // can static methods go in non static classes?
-        // Where does SceneTransitioner live if not in DONOTDESTROY?
         public static void LoadNewScene(string SceneName)
         {
             mSceneTransitionerHelper.LoadNewScene(SceneName);
