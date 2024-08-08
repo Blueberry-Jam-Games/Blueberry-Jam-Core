@@ -1,3 +1,5 @@
+@Library('Unity-Pipeline-Shared-Library') _
+
 pipeline
 {
     agent { label 'ngrokagent1' }
@@ -8,26 +10,11 @@ pipeline
 
     stages
     {
-        //stage('Build-Windows')
-        //{
-        //    steps
-        //    {
-        //        bat '"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -nographics -executeMethod JenkinsBuild.BuildWindows -quit'
-        //    }
-        //}
-        //stage('Build-WebGL')
-        //{
-        //    steps
-        //    {
-        //        bat '"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -nographics -executeMethod JenkinsBuild.BuildWebGL -quit'
-        //    }
-        //}
         stage('Build-WebGL-Linux')
         {
             steps
             {
-                sh 'PROJECT_PATH=$(pwd)'
-                sh '/opt/Unity/Hub/Editor/2022.3.21f1/Editor/Unity -batchmode -projectPath "$PROJECT_PATH" -nographics -executeMethod JenkinsBuild.BuildWebGL -quit'
+                buildWebGL()
             }
         }
         stage('Upload WebGL Build')
