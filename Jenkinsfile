@@ -15,6 +15,7 @@ pipeline
             steps
             {
                 //buildWebGL()
+                sh 'echo $PATH'
                 sh 'PROJECT_PATH=$(pwd)'
                 sh 'Unity -batchmode -projectPath "$PROJECT_PATH" -nographics -executeMethod JenkinsBuild.BuildWebGL -quit'
             }
