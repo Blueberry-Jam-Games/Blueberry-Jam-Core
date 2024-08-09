@@ -2,7 +2,7 @@
 
 pipeline
 {
-    agent { label 'ngrokagent1' }
+    agent { label 'ngrokagent2' }
 
      parameters {
         string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
