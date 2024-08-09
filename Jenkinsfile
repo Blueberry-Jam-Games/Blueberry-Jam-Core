@@ -1,8 +1,8 @@
-//@Library('Unity-Pipeline-Shared-Library') _
+@Library('Unity-Pipeline-Shared-Library') _
 
 pipeline
 {
-    agent { label 'ngrokagent2' }
+    agent { label 'ngrokagent1' }
 
      parameters {
         string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
@@ -10,7 +10,7 @@ pipeline
 
     stages
     {
-        stage('Build-Windows')
+        /*stage('Build-Windows')
         {
             steps
             {
@@ -19,15 +19,15 @@ pipeline
                     "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -projectPath "%PROJECT_PATH%" -nographics -executeMethod JenkinsBuild.BuildWindows -quit
                 """
             }
-        }
-        /*stage('Build-WebGL-Linux')
+        }*/
+        stage('Build-WebGL-Linux')
         {
             steps
             {
                 buildWebGL()
             }
         }
-        stage('Upload WebGL Build')
+        /*stage('Upload WebGL Build')
         {
             steps
             {
