@@ -24,7 +24,7 @@ pipeline
         {
             steps
             {
-                buildWebGL()
+                buildLinux()
             }
         }
         /*stage('Upload WebGL Build')
