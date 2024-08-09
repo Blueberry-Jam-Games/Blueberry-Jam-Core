@@ -10,7 +10,17 @@ pipeline
 
     stages
     {
-        stage('Build-WebGL-Linux')
+        stage('Build-Windows')
+        {
+            steps
+            {
+                bat """
+                    set PROJECT_PATH=%cd%
+                    Unity.exe -batchmode -projectPath "%PROJECT_PATH%" -nographics -executeMethod JenkinsBuild.BuildWindows -quit
+                """
+            }
+        }
+        /*stage('Build-WebGL-Linux')
         {
             steps
             {
@@ -50,10 +60,10 @@ pipeline
                 '''
             }
         }
-    }
+    }*/
     
 
-    post {
+    /*post {
         success {
             // Send a POST request to the Discord webhook URL
             script {
@@ -80,5 +90,5 @@ pipeline
                 }
             }
         }
-    }
+    }*/
 }
