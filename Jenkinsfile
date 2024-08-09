@@ -20,7 +20,7 @@ pipeline
                 """
             }
         }*/
-        stage('Build-WebGL-Linux')
+        stage('Build-Linux')
         {
             steps
             {
