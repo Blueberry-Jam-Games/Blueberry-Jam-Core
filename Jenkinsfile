@@ -16,7 +16,7 @@ pipeline
             {
                 bat """
                     set PROJECT_PATH=%cd%
-                    Unity.exe -batchmode -projectPath "%PROJECT_PATH%" -nographics -executeMethod JenkinsBuild.BuildWindows -quit
+                    "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -projectPath "%PROJECT_PATH%" -nographics -executeMethod JenkinsBuild.BuildWindows -quit
                 """
             }
         }
