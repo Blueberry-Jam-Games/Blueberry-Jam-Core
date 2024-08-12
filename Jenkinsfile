@@ -4,9 +4,9 @@ pipeline
 {
     agent { label 'ngrokagent1' }
 
-     parameters {
+    /*parameters {
         string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
-    }
+    }*/
 
     stages
     {
@@ -25,6 +25,13 @@ pipeline
             steps
             {
                 buildLinux()
+            }
+        }
+        stage('Build-WebGL')
+        {
+            steps
+            {
+                buildWebGL()
             }
         }
         /*stage('Upload WebGL Build')
