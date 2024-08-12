@@ -34,6 +34,13 @@ pipeline
                 buildWebGL()
             }
         }
+        stage('Upload-Linux')
+        {
+            steps
+            {
+                uploadLinuxToAWS()
+            }
+        }
         /*stage('Upload WebGL Build')
         {
             steps
