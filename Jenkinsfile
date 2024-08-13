@@ -17,6 +17,15 @@ pipeline
                 buildWindows()
             }
         }
+        stage('Upload-Windows')
+        {
+            agent { label 'ngrokagent2' }
+            steps
+            {
+                compressWindowsBuild()
+                uploadWindowsToAWS()
+            }
+        }
         stage('Build-Linux')
         {
             agent { label 'ngrokagent1' }
