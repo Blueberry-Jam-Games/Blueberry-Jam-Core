@@ -36,9 +36,9 @@ pipeline
         }
         stage('Build-WebGL')
         {
+            agent { label 'ngrokagent1' }
             steps
             {
-                agent { label 'ngrokagent1' }
                 buildWebGL()
             }
         }
