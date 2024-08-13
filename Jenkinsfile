@@ -2,6 +2,7 @@
 
 pipeline
 {
+    agent none
     /*parameters {
         string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
     }*/
