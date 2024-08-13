@@ -22,6 +22,9 @@ pipeline
             agent { label 'ngrokagent2' }
             steps
             {
+                bat '''
+                    aws --version
+                '''
                 compressWindowsBuild()
                 uploadWindowsToAWS()
             }
