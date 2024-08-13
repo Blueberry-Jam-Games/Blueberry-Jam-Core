@@ -2,26 +2,23 @@
 
 pipeline
 {
-    agent { label 'ngrokagent1' }
-
     /*parameters {
         string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
     }*/
 
     stages
     {
-        /*stage('Build-Windows')
+        stage('Build-Windows')
         {
+            agent { label 'ngrokagent2'}
             steps
             {
-                bat """
-                    set PROJECT_PATH=%cd%
-                    "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.21f1\\Editor\\Unity.exe" -batchmode -projectPath "%PROJECT_PATH%" -nographics -executeMethod JenkinsBuild.BuildWindows -quit
-                """
+                buildWindows()
             }
-        }*/
+        }
         stage('Build-Linux')
         {
+            agent { label 'ngrokagent1' }
             steps
             {
                 buildLinux()
@@ -31,11 +28,13 @@ pipeline
         {
             steps
             {
+                agent { label 'ngrokagent1' }
                 buildWebGL()
             }
         }
         stage('Upload-Linux')
         {
+            agent { label 'ngrokagent1' }
             steps
             {
                 compressLinuxBuild()
@@ -44,6 +43,7 @@ pipeline
         }
         stage('Upload-WebGL')
         {
+            agent { label 'ngrokagent1' }
             steps
             {
                 uploadWebGLToAWS()
