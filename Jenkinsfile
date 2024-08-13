@@ -38,6 +38,7 @@ pipeline
         {
             steps
             {
+                compressLinuxBuild()
                 uploadLinuxToAWS()
             }
         }
