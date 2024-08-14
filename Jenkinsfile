@@ -75,10 +75,17 @@ pipeline
                 }
             }
         }*/
+        stage('Discord-Notification')
+        {
+            agent {label 'controller'}
+            steps {
+                echo 'Testing'
+            }
+        }
     }
     
 
-    post {
+    /*post {
         success {
             agent {label 'controller'}
             // Send a POST request to the Discord webhook URL
@@ -104,5 +111,5 @@ pipeline
                 }
             }
         }
-    }
+    }*/
 }
