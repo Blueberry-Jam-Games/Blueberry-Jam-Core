@@ -9,7 +9,7 @@ pipeline
 
     stages
     {
-        stage('Build-Windows')
+        /*stage('Build-Windows')
         {
             agent { label 'ngrokagent2'}
             steps
@@ -25,21 +25,13 @@ pipeline
                 compressWindowsBuild()
                 uploadWindowsToAWS()
             }
-        }
+        }*/
         stage('Build-Linux')
         {
             agent { label 'ngrokagent1' }
             steps
             {
                 buildLinux()
-            }
-        }
-        stage('Build-WebGL')
-        {
-            agent { label 'ngrokagent1' }
-            steps
-            {
-                buildWebGL()
             }
         }
         stage('Upload-Linux')
@@ -49,6 +41,14 @@ pipeline
             {
                 compressLinuxBuild()
                 uploadLinuxToAWS()
+            }
+        }
+        stage('Build-WebGL')
+        {
+            agent { label 'ngrokagent1' }
+            steps
+            {
+                buildWebGL()
             }
         }
         stage('Upload-WebGL')
