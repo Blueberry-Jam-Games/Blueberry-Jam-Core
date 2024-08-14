@@ -79,7 +79,27 @@ pipeline
         {
             agent {label 'controller'}
             steps {
-                echo 'Testing'
+                script {
+                    withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
+                        //make sure ?thread_id=${threadId} is appended to the webhook
+                        def webhookUrl = "${WEBHOOK_URL}"
+                
+                        def presignedUrl = sh(
+                            script: """
+                                aws s3 presign s3://linux-build/Build-Linux.zip --expires-in 3600
+                            """,
+                            returnStdout: true
+                        ).trim()
+
+                        def websiteEndpoint = "http://webgl-hostbuild.s3-website-us-west-2.amazonaws.com"
+                        // Construct the JSON payload with proper escaping
+                        def payload = "{\"content\": \"Build is complete.\\n\\nWebGL Build link: ${websiteEndpoint}\\nLinux Build link: ${presignedUrl}\"}"
+
+                        sh """
+                            curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
+                        """
+                    }
+                }
             }
         }
     }
