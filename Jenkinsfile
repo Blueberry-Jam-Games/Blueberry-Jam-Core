@@ -80,6 +80,7 @@ pipeline
 
     post {
         success {
+            agent {label 'controller'}
             // Send a POST request to the Discord webhook URL
             script {
                 withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
