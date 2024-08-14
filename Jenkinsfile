@@ -77,7 +77,7 @@ pipeline
         }*/
         stage('Discord-Notification')
         {
-            agent {label 'controller'}
+            agent {label 'ngrokagent1'}
             steps {
                 script {
                     withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
