@@ -98,7 +98,7 @@ pipeline
                             returnStdout: true
                         ).trim()
 
-                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com/index.html"
+                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com"
                         // Construct the JSON payload with proper escaping
                         def payload = "{\"content\": \"Build is complete.\\nLinux Build link: ${presignedUrlLinux}\\nWindows Build: ${presignedUrlWindows}\\n\\nWebGL Build link: ${websiteEndpoint}\"}"
 
