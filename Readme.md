@@ -24,8 +24,8 @@ Install with `Window -> Package Manager -> Add package from git URL` and use the
 - ~~2D Arrays~~
 
 ### Level Loader (Connor)
-- Scene transitioner.
-- Easy to add new transitions.
+- ~~Scene transitioner.~~
+- ~~Easy to add new transitions.~~
 
 ### Jenkins Integration (Connor)
 - I think we need a script to exist in the main project for it to work but even a template or library would be good.
