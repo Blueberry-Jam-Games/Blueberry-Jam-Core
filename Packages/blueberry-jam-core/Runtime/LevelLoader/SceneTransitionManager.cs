@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BJ
 {
-    public class SceneTransitioner
+    public class SceneTransitionManager
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
@@ -23,7 +23,7 @@ namespace BJ
                 Debug.LogError("Failed to create a GameObject instance from the configuration prefab");
             }
 
-            if (scene_transitioner_config_instance.TryGetComponent<SceneTransitionerHelper>(out SceneTransitionerHelper sch))
+            if (scene_transitioner_config_instance.TryGetComponent<SceneTransitionManagerHelper>(out SceneTransitionManagerHelper sch))
             {
                 mSceneTransitionerHelper = sch;
             }
@@ -33,7 +33,7 @@ namespace BJ
             }
         }
 
-        private static SceneTransitionerHelper mSceneTransitionerHelper;
+        private static SceneTransitionManagerHelper mSceneTransitionerHelper;
 
         public static void LoadNewScene(string SceneName)
         {

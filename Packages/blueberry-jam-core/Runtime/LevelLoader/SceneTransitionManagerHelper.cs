@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace BJ
 {
-    internal class SceneTransitionerHelper : SingletonGameObject<SceneTransitionerHelper>
+    internal class SceneTransitionManagerHelper : SingletonGameObject<SceneTransitionManagerHelper>
     {
         [Header("Game Object References")]
         [SerializeField] private CanvasGroup Crossfade;
