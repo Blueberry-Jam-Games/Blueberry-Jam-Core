@@ -1,5 +1,4 @@
 using System.Collections;
-using Codice.Client.BaseCommands.TubeClient;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +22,7 @@ namespace BJ
         protected override void Awake()
         {
             base.Awake();
-            Assertions();
+            CheckSceneTransitionerManagerSettings();
 
             StartTransitionTime = 0.0f;
         }
@@ -35,9 +34,6 @@ namespace BJ
 
         private IEnumerator LoadLevelAnim(string SceneName)
         {
-
-            Assertions();
-
             /* ----- Fade to black (Start) ----- */
             Crossfade.gameObject.SetActive(true);
             LoadingIcon.sprite = Frames[0];
@@ -79,7 +75,7 @@ namespace BJ
             /* ----- Unfade from black (End) ----- */
         }
 
-        private void Assertions()
+        private void CheckSceneTransitionerManagerSettings()
         {
             Debug.Assert(Frames.Length > 0, "The Configuration Prefab for the Scene Transitioner has no Frames. Please add some so that you can indicate to the user that a level is loading");
             Debug.Assert(Crossfade != null, "Crossfade GameObject is not set. Please assign it so that the Scene Transitioner can fade to black and lift the black when level loading is complete");
