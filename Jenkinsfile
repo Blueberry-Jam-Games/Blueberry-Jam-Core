@@ -6,7 +6,7 @@ pipeline
 
     stages
     {
-        /*stage('Build-Windows')
+        stage('Build-Windows')
         {
             agent { label 'ngrokagent2'}
             steps
@@ -25,7 +25,7 @@ pipeline
                     withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
                         def webhookUrl = "${WEBHOOK_URL}"
 
-                        def presignedUrlWindows = sh(
+                        def presignedUrlWindows = bat(
                             script: """
                                 aws s3 presign s3://window-build/Build-Windows.zip --expires-in 3600
                             """,
@@ -34,13 +34,13 @@ pipeline
 
                         def payload = "{\"content\": \"Windows Build complete, here is the download link: ${presignedUrlWindows}\"}"
 
-                        sh """
+                        bat """
                             curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
                         """
                     }
                 }
             }
-        }*/
+        }
         stage('Build-Linux')
         {
             agent { label 'ngrokagent1' }
