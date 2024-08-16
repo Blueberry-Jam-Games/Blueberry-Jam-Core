@@ -3,9 +3,6 @@
 pipeline
 {
     agent none
-    /*parameters {
-        string(name: 'THREAD_ID', defaultValue: '', description: 'Discord thread ID to send the notification')
-    }*/
 
     stages
     {
@@ -59,22 +56,6 @@ pipeline
                 uploadWebGLToAWS()
             }
         }
-        /*stage('Upload WebGL Build')
-        {
-            steps
-            {
-                echo 'deploy WebGL build here'
-                withCredentials([usernamePassword(credentialsId: 'aws-credentials-id', 
-                                                 usernameVariable: 'AWS_ACCESS_KEY_ID', 
-                                                 passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh '''
-                        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-                        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-                        aws s3 cp Build/WebGL/Blueberry-Jam-Core s3://webgl-deploy/ --recursive
-                    '''
-                }
-            }
-        }*/
         stage('Discord-Notification')
         {
             agent {label 'ngrokagent1'}
