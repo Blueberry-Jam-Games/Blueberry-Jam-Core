@@ -6,39 +6,39 @@ using UnityEngine;
 
 namespace BJ
 {
-    public class ListStringBuilder : MonoBehaviour
+    public static class ListStringBuilder
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-        
         public delegate String Stringifier(UnityEngine.Object obj);
-        StringBuilder sb;
+        private static StringBuilder sb;
 
-        public String Stringify(IList<UnityEngine.Object> ts) {
-            sb = new StringBuilder();
-            foreach (var item in ts)
+        public static string Stringify(IList<UnityEngine.Object> ts) {
+            RefreshStringBuilder();
+            for (int i = 0, count = ts.Count; i < count; i++)
             {
-                sb.Append(item.ToString());
+                sb.Append(ts[i].ToString());
             }
             return sb.ToString();
         }
 
-        public String StringifyMeDelegate(IList<UnityEngine.Object> ts, Stringifier del) {
-            sb = new StringBuilder();
-            foreach (var item in ts)
+        public static string StringifyDelegate(IList<UnityEngine.Object> ts, Stringifier del) {
+            RefreshStringBuilder();
+            for (int i = 0, count = ts.Count; i < count; i++)
             {
-                sb.Append(del(item));
+                sb.Append(del(ts[i]));
             }
             return sb.ToString();
+        }
+
+        private static void RefreshStringBuilder()
+        {
+            if (sb == null)
+            {
+                sb = new StringBuilder();
+            }
+            else
+            {
+                sb.Clear();
+            }
         }
     }
 }

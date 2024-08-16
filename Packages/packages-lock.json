@@ -162,7 +162,7 @@
       },
       "url": "https://packages.unity.com"
     },
-    "io.github.blueberry-jam-games.core": {
+    "io.blueberryjam.blueberry-jam-games.core": {
       "version": "file:blueberry-jam-core",
       "depth": 0,
       "source": "embedded",
