@@ -97,6 +97,7 @@ pipeline
             agent { label 'ngrokagent1' }
             steps
             {
+                compressWebGLBuild()
                 uploadWebGLToAWS()
                 script {
                     withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
@@ -104,12 +105,12 @@ pipeline
 
                         def presignedUrlWebGL = sh(
                             script: """
-                                aws s3 presign s3://webgl-unitybuild/Build --expires-in 3600
+                                aws s3 presign s3://webgl-unitybuild/WebGL-Build.zip --expires-in 3600
                             """,
                             returnStdout: true
                         ).trim()
 
-                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com/Build/"
+                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com"
                         // Construct the JSON payload with proper escaping
                         def payload = "{\"content\": \"WebGL Build is complete, play the game here: ${websiteEndpoint} \\n\\n Download WebGL Build here: ${presignedUrlWebGL}\"}"
 
