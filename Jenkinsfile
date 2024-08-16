@@ -111,7 +111,7 @@ pipeline
 
                         def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com/Build/"
                         // Construct the JSON payload with proper escaping
-                        def payload = "{\"content\": \"WebGL Build is complete, play the game here: ${websiteEndpoint}\"}"
+                        def payload = "{\"content\": \"WebGL Build is complete, play the game here: ${websiteEndpoint} \\n\\n Download WebGL Build here: ${presignedUrlWebGL}\"}"
 
                         sh """
                             curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
