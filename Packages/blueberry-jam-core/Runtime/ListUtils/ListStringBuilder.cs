@@ -11,7 +11,8 @@ namespace BJ
         public delegate String Stringifier(UnityEngine.Object obj);
         private static StringBuilder sb;
 
-        public static string Stringify(IList<UnityEngine.Object> ts) {
+        public static string Stringify(IList<UnityEngine.Object> ts)
+        {
             RefreshStringBuilder();
             for (int i = 0, count = ts.Count; i < count; i++)
             {
@@ -20,7 +21,8 @@ namespace BJ
             return sb.ToString();
         }
 
-        public static string StringifyDelegate(IList<UnityEngine.Object> ts, Stringifier del) {
+        public static string StringifyDelegate(IList<UnityEngine.Object> ts, Stringifier del)
+        {
             RefreshStringBuilder();
             for (int i = 0, count = ts.Count; i < count; i++)
             {

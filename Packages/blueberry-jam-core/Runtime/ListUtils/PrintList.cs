@@ -6,19 +6,8 @@ namespace BJ
 {
     public class PrintList : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        void PrintThisGO(List<GameObject> pop)
         {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-
-        void PrintThisGO(List<GameObject> pop) {
             int i = 0;
             foreach (var item in pop)
             {
