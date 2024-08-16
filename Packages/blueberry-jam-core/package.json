@@ -1,6 +1,6 @@
 {
-  "name": "io.github.blueberry-jam-games.core",
-  "version": "0.0.2",
+  "name": "io.blueberryjam.blueberry-jam-games.core",
+  "version": "0.0.5",
   "displayName": "Blueberry Jam Games Core",
   "description": "Starter code for Blueberry Jam Games projects.",
   "unity": "2021.3",
@@ -22,10 +22,10 @@
     "url": "https://github.com/Blueberry-Jam-Games/"
   },
   "samples": [
-	{
-		"displayName": "Samples",
-		"description": "Example usage of most of the tools in this package",
-		"path": "Samples~"
-	}
+    {
+      "displayName": "Samples",
+      "description": "Example usage of most of the tools in this package",
+      "path": "Samples~"
+    }
   ]
 }
