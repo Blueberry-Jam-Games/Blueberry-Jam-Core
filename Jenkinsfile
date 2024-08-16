@@ -21,21 +21,23 @@ pipeline
             {
                 compressWindowsBuild()
                 uploadWindowsToAWS()
-                withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
-                    def webhookUrl = "${WEBHOOK_URL}"
+                script {
+                    withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
+                        def webhookUrl = "${WEBHOOK_URL}"
 
-                    def presignedUrlWindows = sh(
-                        script: """
-                            aws s3 presign s3://window-build/Build-Windows.zip --expires-in 3600
-                        """,
-                        returnStdout: true
-                    ).trim()
+                        def presignedUrlWindows = sh(
+                            script: """
+                                aws s3 presign s3://window-build/Build-Windows.zip --expires-in 3600
+                            """,
+                            returnStdout: true
+                        ).trim()
 
-                    def payload = "{\"content\": \"Windows Build complete, here is the download link: ${presignedUrlWindows}\"}"
+                        def payload = "{\"content\": \"Windows Build complete, here is the download link: ${presignedUrlWindows}\"}"
 
-                    sh """
-                        curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
-                    """
+                        sh """
+                            curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
+                        """
+                    }
                 }
             }
         }*/
@@ -54,22 +56,24 @@ pipeline
             {
                 compressLinuxBuild()
                 uploadLinuxToAWS()
-                withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
-                    def webhookUrl = "${WEBHOOK_URL}"
+                script {
+                    withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
+                        def webhookUrl = "${WEBHOOK_URL}"
                 
-                    def presignedUrlLinux = sh(
-                        script: """
-                            aws s3 presign s3://linux-build/Build-Linux.zip --expires-in 3600
-                        """,
-                        returnStdout: true
-                    ).trim()
+                        def presignedUrlLinux = sh(
+                            script: """
+                                aws s3 presign s3://linux-build/Build-Linux.zip --expires-in 3600
+                            """,
+                            returnStdout: true
+                        ).trim()
 
-                    // Construct the JSON payload with proper escaping
-                    def payload = "{\"content\": \"Linux Build complete, here is the download link: ${presignedUrlLinux}\"}"
+                        // Construct the JSON payload with proper escaping
+                        def payload = "{\"content\": \"Linux Build complete, here is the download link: ${presignedUrlLinux}\"}"
 
-                    sh """
-                        curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
-                    """
+                        sh """
+                            curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
+                        """
+                    }
                 }
             }
         }
@@ -87,16 +91,18 @@ pipeline
             steps
             {
                 uploadWebGLToAWS()
-                withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
-                    def webhookUrl = "${WEBHOOK_URL}"
+                script {
+                    withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
+                        def webhookUrl = "${WEBHOOK_URL}"
 
-                    def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com"
-                    // Construct the JSON payload with proper escaping
-                    def payload = "{\"content\": \"WebGL Build is complete, play the game here: ${websiteEndpoint}\"}"
+                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com"
+                        // Construct the JSON payload with proper escaping
+                        def payload = "{\"content\": \"WebGL Build is complete, play the game here: ${websiteEndpoint}\"}"
 
-                    sh """
-                        curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
-                    """
+                        sh """
+                            curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
+                        """
+                    }
                 }
             }
         }
