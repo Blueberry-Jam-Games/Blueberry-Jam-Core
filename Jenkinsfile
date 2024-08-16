@@ -102,7 +102,7 @@ pipeline
                     withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
                         def webhookUrl = "${WEBHOOK_URL}"
 
-                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com"
+                        def websiteEndpoint = "http://webgl-unitybuild.s3-website-us-west-2.amazonaws.com/Build/"
                         // Construct the JSON payload with proper escaping
                         def payload = "{\"content\": \"WebGL Build is complete, play the game here: ${websiteEndpoint}\"}"
 
