@@ -21,11 +21,18 @@ pipeline
             {
                 compressWindowsBuild()
                 uploadWindowsToAWS()
+            }
+        }
+        stage('Discord-Notification-Windows')
+        {
+            agent {label 'ngrokagent1' }
+            steps
+            {
                 script {
                     withCredentials([string(credentialsId: 'discord_webhook', variable: 'WEBHOOK_URL')]) {
                         def webhookUrl = "${WEBHOOK_URL}"
 
-                        def presignedUrlWindows = bat(
+                        def presignedUrlWindows = sh(
                             script: """
                                 aws s3 presign s3://window-build/Build-Windows.zip --expires-in 3600
                             """,
@@ -34,7 +41,7 @@ pipeline
 
                         def payload = "{\"content\": \"Windows Build complete, here is the download link: ${presignedUrlWindows}\"}"
 
-                        bat """
+                        sh """
                             curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${webhookUrl}'
                         """
                     }
