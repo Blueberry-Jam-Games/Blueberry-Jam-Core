@@ -1,6 +1,6 @@
 {
   "name": "io.blueberryjam.blueberry-jam-games.core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "displayName": "Blueberry Jam Games Core",
   "description": "Starter code for Blueberry Jam Games projects.",
   "unity": "2021.3",
