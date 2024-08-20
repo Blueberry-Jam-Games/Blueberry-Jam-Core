@@ -36,7 +36,9 @@ namespace BJ
 
         internal void LoadNewScene(string SceneName)
         {
+            Crossfade.blocksRaycasts = true;
             StartCoroutine(LoadLevelAnim(SceneName));
+            Crossfade.blocksRaycasts = false;
         }
 
         public bool disableCharacterMovement = false;
@@ -48,7 +50,6 @@ namespace BJ
             Crossfade.gameObject.SetActive(true);
             ShowAct.enabled = false;
             FadetoBlack.enabled = true;
-
             disableCharacterMovement = true;
 
             StartTransitionTime = Time.time;
@@ -62,6 +63,7 @@ namespace BJ
             {
                 FadetoBlack.enabled = false;
                 /* ----- Fade to black (End) */
+
                 /* ----- Load Level (Start) ----- */
                 ShowAct.sprite = Acts[current_act];
                 ShowAct.enabled = true;
@@ -114,6 +116,7 @@ namespace BJ
                 current_act = 0;
             }
             else if (current_act < Acts.Length + 1)
+
             {
                 current_act++;
             }
@@ -121,6 +124,7 @@ namespace BJ
             {
                 Debug.LogError("An act interlude is not available");
             }
+            
             disableCharacterMovement = false;
             Crossfade.blocksRaycasts = false;
         }
