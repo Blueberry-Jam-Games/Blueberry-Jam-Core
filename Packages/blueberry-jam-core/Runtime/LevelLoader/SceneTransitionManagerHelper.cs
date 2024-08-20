@@ -36,7 +36,9 @@ namespace BJ
 
         internal void LoadNewScene(string SceneName)
         {
+            Crossfade.blocksRaycasts = true;
             StartCoroutine(LoadLevelAnim(SceneName));
+            Crossfade.blocksRaycasts = false;
         }
 
         private IEnumerator LoadLevelAnim(string SceneName)
@@ -108,12 +110,10 @@ namespace BJ
             Scene current_scene = SceneManager.GetSceneByName(SceneName);
             if (start_scene == current_scene)
             {
-                Debug.Log("resetting ");
                 current_act = 0;
             }
             else if (current_act < Acts.Length)
             {
-                Debug.Log("adding one");
                 current_act++;
             }
             else
