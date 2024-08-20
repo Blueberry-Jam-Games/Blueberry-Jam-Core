@@ -36,7 +36,9 @@ namespace BJ
 
         internal void LoadNewScene(string SceneName)
         {
+            Crossfade.blocksRaycasts = true;
             StartCoroutine(LoadLevelAnim(SceneName));
+            Crossfade.blocksRaycasts = false;
         }
 
         private IEnumerator LoadLevelAnim(string SceneName)
