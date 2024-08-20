@@ -54,15 +54,18 @@ namespace BJ
                 yield return null;
             }
 
-            if (current_act != Acts.Length - 1)
+            if (current_act != Acts.Length)
             {
-                Debug.Log("did this get logged?" + current_act);
                 FadetoBlack.enabled = false;
                 /* ----- Fade to black (End) */
-
+                Debug.Log("Current Act: " + current_act);
                 /* ----- Load Level (Start) ----- */
                 ShowAct.sprite = Acts[current_act];
                 ShowAct.enabled = true;
+
+                Color image = ShowAct.color;
+                image.a = 255;
+                ShowAct.color = image;
             }
             
             AsyncOperation load_operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(SceneName);
@@ -77,12 +80,12 @@ namespace BJ
             {
                 yield return null;
             }
-            Debug.Log("Waited three seconds");
 
             /* ----- Load Level (End) ----- */
 
             /* ----- Unfade from black (Start) ----- */
             StartTransitionTime = Time.time;
+
             while (Time.time - StartTransitionTime < TransitionTime)
             {
                 if (current_act != Acts.Length - 1)
@@ -105,10 +108,12 @@ namespace BJ
             Scene current_scene = SceneManager.GetSceneByName(SceneName);
             if (start_scene == current_scene)
             {
+                Debug.Log("resetting ");
                 current_act = 0;
             }
             else if (current_act < Acts.Length)
             {
+                Debug.Log("adding one");
                 current_act++;
             }
             else
