@@ -58,11 +58,10 @@ namespace BJ
                 yield return null;
             }
 
-            if (current_act != Acts.Length || current_act != Acts.Length - 1)
+            if (current_act < Acts.Length)
             {
                 FadetoBlack.enabled = false;
                 /* ----- Fade to black (End) */
-                Debug.Log("Current Act: " + current_act);
                 /* ----- Load Level (Start) ----- */
                 ShowAct.sprite = Acts[current_act];
                 ShowAct.enabled = true;
@@ -92,7 +91,7 @@ namespace BJ
 
             while (Time.time - StartTransitionTime < TransitionTime)
             {
-                if (current_act != Acts.Length - 1 || current_act != Acts.Length - 2)
+                if (current_act < Acts.Length)
                 {
                     Color image = ShowAct.color;
                     image.a = EaseTransitionCurve.Evaluate(TransitionTime - (Time.time - StartTransitionTime));
@@ -112,12 +111,10 @@ namespace BJ
             Scene current_scene = SceneManager.GetSceneByName(SceneName);
             if (start_scene == current_scene)
             {
-                Debug.Log("resetting ");
                 current_act = 0;
             }
-            else if (current_act < Acts.Length)
+            else if (current_act < Acts.Length + 1)
             {
-                Debug.Log("adding one");
                 current_act++;
             }
             else
