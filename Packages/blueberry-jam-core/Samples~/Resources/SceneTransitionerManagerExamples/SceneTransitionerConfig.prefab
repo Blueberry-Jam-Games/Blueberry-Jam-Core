@@ -265,9 +265,7 @@ MonoBehaviour:
   FadetoBlack: {fileID: 7770555427681141752}
   ShowAct: {fileID: 6565108722449620510}
   WaitTime: 3
-  Acts:
-  - {fileID: 21300000, guid: fbd18feb15718e1489c477fa23b06b69, type: 3}
-  - {fileID: 21300000, guid: 7c6bd483d567a1346b1051cfec56a4ec, type: 3}
+  Acts: []
 --- !u!1 &8137173797254912928
 GameObject:
   m_ObjectHideFlags: 0
