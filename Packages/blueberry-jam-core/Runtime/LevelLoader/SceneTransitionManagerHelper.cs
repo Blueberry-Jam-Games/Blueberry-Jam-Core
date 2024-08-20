@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BJ
@@ -8,13 +9,17 @@ namespace BJ
     {
         [Header("Game Object References")]
         [SerializeField] private CanvasGroup Crossfade;
-        [SerializeField] private Image LoadingIcon;
-        [Header("Animation Reference Storage")]
-        [SerializeField] private Sprite[] Frames;
 
         [Header("Animation Configuration")]
         [SerializeField] private float TransitionTime = 1f;
         [SerializeField] private AnimationCurve EaseTransitionCurve;
+
+
+        [SerializeField] private Image FadetoBlack;
+        [SerializeField] private Image ShowAct;
+        [SerializeField] private float WaitTime = 3f;
+        private int current_act;
+        [SerializeField] private Sprite[] Acts;
 
         /* ----- Helper Variables -----*/
         private float StartTransitionTime;
@@ -26,20 +31,21 @@ namespace BJ
             Crossfade.blocksRaycasts = false;
 
             StartTransitionTime = 0.0f;
+            current_act = 0;
         }
 
         internal void LoadNewScene(string SceneName)
         {
-            Crossfade.blocksRaycasts = true;
             StartCoroutine(LoadLevelAnim(SceneName));
-            Crossfade.blocksRaycasts = false;
         }
 
         private IEnumerator LoadLevelAnim(string SceneName)
         {
+            Crossfade.blocksRaycasts = true;
             /* ----- Fade to black (Start) ----- */
             Crossfade.gameObject.SetActive(true);
-            LoadingIcon.sprite = Frames[0];
+            ShowAct.enabled = false;
+            FadetoBlack.enabled = true;
 
             StartTransitionTime = Time.time;
             while (Time.time - StartTransitionTime < TransitionTime)
@@ -47,42 +53,74 @@ namespace BJ
                 Crossfade.alpha = EaseTransitionCurve.Evaluate(Time.time - StartTransitionTime);
                 yield return null;
             }
-            /* ----- Fade to black (End) */
 
-            /* ----- Load Level (Start) ----- */
+            if (current_act != Acts.Length - 1)
+            {
+                Debug.Log("did this get logged?" + current_act);
+                FadetoBlack.enabled = false;
+                /* ----- Fade to black (End) */
+
+                /* ----- Load Level (Start) ----- */
+                ShowAct.sprite = Acts[current_act];
+                ShowAct.enabled = true;
+            }
+            
             AsyncOperation load_operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(SceneName);
 
-            int i = 0;
             while (!load_operation.isDone)
             {
-                if (i >= Frames.Length)
-                {
-                    i = 0;
-                }
-
-                LoadingIcon.sprite = Frames[i];
-
-                i++;
                 yield return null;
             }
+
+            StartTransitionTime = Time.time;
+            while (Time.time - StartTransitionTime < WaitTime)
+            {
+                yield return null;
+            }
+            Debug.Log("Waited three seconds");
+
             /* ----- Load Level (End) ----- */
 
             /* ----- Unfade from black (Start) ----- */
             StartTransitionTime = Time.time;
             while (Time.time - StartTransitionTime < TransitionTime)
             {
-                Crossfade.alpha = EaseTransitionCurve.Evaluate(TransitionTime - (Time.time - StartTransitionTime));
+                if (current_act != Acts.Length - 1)
+                {
+                    Color image = ShowAct.color;
+                    image.a = EaseTransitionCurve.Evaluate(TransitionTime - (Time.time - StartTransitionTime));
+                    ShowAct.color = image;
+                }
+                else
+                {
+                    Crossfade.alpha = EaseTransitionCurve.Evaluate(TransitionTime - (Time.time - StartTransitionTime));
+                }
+                
                 yield return null;
             }
+
             Crossfade.gameObject.SetActive(false);
             /* ----- Unfade from black (End) ----- */
+            Scene start_scene = SceneManager.GetSceneByBuildIndex(0);
+            Scene current_scene = SceneManager.GetSceneByName(SceneName);
+            if (start_scene == current_scene)
+            {
+                current_act = 0;
+            }
+            else if (current_act < Acts.Length)
+            {
+                current_act++;
+            }
+            else
+            {
+                Debug.LogError("An act interlude is not available");
+            }
+            Crossfade.blocksRaycasts = false;
         }
 
         private void CheckSceneTransitionerManagerSettings()
         {
-            Debug.Assert(Frames.Length > 0, "The Configuration Prefab for the Scene Transitioner has no Frames. Please add some so that you can indicate to the user that a level is loading");
             Debug.Assert(Crossfade != null, "Crossfade GameObject is not set. Please assign it so that the Scene Transitioner can fade to black and lift the black when level loading is complete");
-            Debug.Assert(LoadingIcon != null, "LoadingIcon GameObject is not set. Please assign it so that the sprites that you have specified in 'Frames' will be displayed on the screen");
             Debug.Assert(EaseTransitionCurve != null, "EaseTransitionCurve is not set. Please specify an AnimationCurve so that you can specify the speed at which the screen fades to black and lifts the blackout");
         }
     }
