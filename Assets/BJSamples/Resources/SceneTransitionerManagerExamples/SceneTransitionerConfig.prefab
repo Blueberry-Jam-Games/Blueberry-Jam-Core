@@ -265,7 +265,9 @@ MonoBehaviour:
   FadetoBlack: {fileID: 7770555427681141752}
   ShowAct: {fileID: 6565108722449620510}
   WaitTime: 3
-  Acts: []
+  Acts:
+  - {fileID: 21300000, guid: 568fda3df1241fe41b404d355d27aed2, type: 3}
+  disableCharacterMovement: 0
 --- !u!1 &8137173797254912928
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,6 +41,8 @@ namespace BJ
             Crossfade.blocksRaycasts = false;
         }
 
+        public bool disableCharacterMovement = false;
+
         private IEnumerator LoadLevelAnim(string SceneName)
         {
             Crossfade.blocksRaycasts = true;
@@ -48,6 +50,7 @@ namespace BJ
             Crossfade.gameObject.SetActive(true);
             ShowAct.enabled = false;
             FadetoBlack.enabled = true;
+            disableCharacterMovement = true;
 
             StartTransitionTime = Time.time;
             while (Time.time - StartTransitionTime < TransitionTime)
@@ -56,11 +59,11 @@ namespace BJ
                 yield return null;
             }
 
-            if (current_act != Acts.Length)
+            if (current_act < Acts.Length)
             {
                 FadetoBlack.enabled = false;
                 /* ----- Fade to black (End) */
-                Debug.Log("Current Act: " + current_act);
+
                 /* ----- Load Level (Start) ----- */
                 ShowAct.sprite = Acts[current_act];
                 ShowAct.enabled = true;
@@ -90,7 +93,7 @@ namespace BJ
 
             while (Time.time - StartTransitionTime < TransitionTime)
             {
-                if (current_act != Acts.Length - 1)
+                if (current_act < Acts.Length)
                 {
                     Color image = ShowAct.color;
                     image.a = EaseTransitionCurve.Evaluate(TransitionTime - (Time.time - StartTransitionTime));
@@ -112,7 +115,8 @@ namespace BJ
             {
                 current_act = 0;
             }
-            else if (current_act < Acts.Length)
+            else if (current_act < Acts.Length + 1)
+
             {
                 current_act++;
             }
@@ -120,6 +124,8 @@ namespace BJ
             {
                 Debug.LogError("An act interlude is not available");
             }
+            
+            disableCharacterMovement = false;
             Crossfade.blocksRaycasts = false;
         }
 
