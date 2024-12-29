@@ -168,6 +168,7 @@ MonoBehaviour:
   sounds:
   - name: wand1
     clip: {fileID: 8300000, guid: 7fa575dae5b398d44845327da3da847a, type: 3}
+    mixerGroup: {fileID: 6341607315293751770, guid: 84df9e63263ee39448df6572f997217b, type: 2}
     volume: 1
     pitch: 1
     loop: 0
@@ -176,6 +177,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: wand2
     clip: {fileID: 8300000, guid: abd2904a6354b344fb9e0194640b427a, type: 3}
+    mixerGroup: {fileID: 0}
     volume: 1
     pitch: 1
     loop: 0

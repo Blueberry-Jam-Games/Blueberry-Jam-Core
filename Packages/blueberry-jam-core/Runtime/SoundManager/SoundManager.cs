@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace BJ
 {
@@ -28,6 +29,7 @@ namespace BJ
 
                 sound.source = gameObject.AddComponent<AudioSource>();
                 sound.source.clip = sound.clip;
+                sound.source.outputAudioMixerGroup = sound.mixerGroup;
                 sound.source.volume = sound.volume;
                 sound.source.pitch = sound.pitch;
                 sound.source.playOnAwake = sound.playOnAwake;
@@ -90,6 +92,7 @@ namespace BJ
     {
         public string name;
         public AudioClip clip;
+        public AudioMixerGroup mixerGroup;
 
         [Range(0f, 1f)]
         public float volume = 1.0f;
