@@ -1,5 +1,12 @@
 Install with `Window -> Package Manager -> Add package from git URL` and use the url `https://github.com/Blueberry-Jam-Games/Blueberry-Core.git?path=/Packages/blueberry-jam-core`
 
+This iteration of the package is depricated, use [https://github.com/Blueberry-Jam-Games/Blueberry-Jam-Core-Package](https://github.com/Blueberry-Jam-Games/Blueberry-Jam-Core-Package) instead.
+Development has moved to [https://github.com/Blueberry-Jam-Games/-Blueberry-Jam-Core-Dev](https://github.com/Blueberry-Jam-Games/-Blueberry-Jam-Core-Dev)
+
+The replacement packages should be drop-in compatible.
+
+The below To do list is available for archive purposes.
+
 ## To-Do List
 
 ### Coroutine Helpers (Kaiden) - **Done**
